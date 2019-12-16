@@ -49,7 +49,7 @@
   <!--================Header Menu Area =================-->
 
    <!--================Hero Banner SM Area Start =================-->
-   <section class="hero-banner-sm magic-ball magic-ball-banner" id="parallax-1" data-anchor-target="#parallax-1" data-300-top="background-position: 0px -80px" data-top-bottom="background-position: 0 100px">
+  <section class="hero-banner-sm magic-ball magic-ball-banner" id="parallax-1" data-anchor-target="#parallax-1" data-300-top="background-position: 0px -80px" data-top-bottom="background-position: 0 100px">
     <div class="container">
       <div class="hero-banner-sm-content">
         <h1>List Order!</h1>
@@ -60,23 +60,22 @@
   <!--================Hero Banner SM Area End =================-->
 
   <section class="section-margin pb-xl-5">
-  <div class="container">
-
-  <div class="panel">
+    <div class="container">
+      <div class="panel">
 					<div class="panel-heading">Order</div>
 					<div class="panel-body">
-
-						<form action="<?php echo base_url('Welcome/pesan/'); ?>" method="post">
+						<form action="<?php echo base_url('Welcome/pesan'); ?>" method="post">
 							<table class="table table-striped">
 								<thead>
 									<tr>
-                  <th>Nama Paket</th>
+                    <th>Nama Paket</th>
                     <th>Foto Tourguide</th>
 										<th>Nama Tourguide</th>
                     <th>Kemampuan</th>
                     <th>Telephone</th>
-                  <th>Harga Paket</th>
-                  <th>Lama Hari</th>
+                    <th>Harga Paket</th>
+                    <th>Tanggal</th>
+                    <th>Lama Hari</th>
 										<th>Aksi</th>
 									</tr>
 								</thead>
@@ -87,7 +86,6 @@
 										foreach ($order as $cart) {
 											echo '
 												<tr>
-                          <input>
                           <input type="hidden" name="id_paket[]" value="'.$cart->id_paket.'">
                           <td>'.$cart->nama_paket.'</td>
                           <td><img src="'.base_url('assets/img_guide/').$cart->foto.'" width="100px" /></td>
@@ -95,6 +93,7 @@
                           <td>'.$cart->kemampuan.'</td>
                           <td>'.$cart->telp.'</td>
                           <td>'.$cart->harga.'</td>
+                          <td>'.$cart->tanggal.'</td>
                           <td>'.$cart->lama_hari.'</td>
 													
                           <td>
@@ -108,7 +107,7 @@
 									} else {
 										echo '
 											<tr>
-												<td colspan="8">
+												<td colspan="9">
 													Pesanan Kosong.
 												</td>
 											</tr>
@@ -117,36 +116,14 @@
 								?>
 								</tbody>
 							</table>
-              
-							<?php
-								if($order != NULL)
-								{
-									echo '
-										<div class="row">
-											<div class="col-md-4">
-											</div>
-                      <div class="col-md-5">
-                      <input type="hidden" name="status" value="2">
-                        <label>Tanggal Pemesanan</label>
-												<input type="date" name="jadwal" class="form-control input-lg" required>
-											</div>
-											<div class="col-md-3">
-												<input type="submit" name="submit" value="Pesan" class="btn btn-lg btn-block btn-primary">
-											</div>
-										';
-								}
-							?>
+              <button type="submit" class="btn btn-lg btn-block btn-primary">Pesan</button>
+
 						</form>
-
-					</div>
-				</div>
-        </div>
-
-
-
-
-</section>
-<script src="<?= base_url() ?>assets/vendors/jquery/jquery-3.2.1.min.js"></script>
+				  </div>
+			</div>
+    </div>
+  </section>
+  <script src="<?= base_url() ?>assets/vendors/jquery/jquery-3.2.1.min.js"></script>
   <script src="<?= base_url() ?>assets/vendors/bootstrap/bootstrap.bundle.min.js"></script>
   <script src="<?= base_url() ?>assets/vendors/owl-carousel/owl.carousel.min.js"></script>
   <script src="<?= base_url() ?>assets/vendors/nice-select/jquery.nice-select.min.js"></script>
@@ -154,3 +131,7 @@
   <script src="<?= base_url() ?>assets/js/mail-script.js"></script>
   <script src="<?= base_url() ?>assets/js/skrollr.min.js"></script>
   <script src="<?= base_url() ?>assets/js/main.js"></script>
+
+  </body>
+</html>
+  

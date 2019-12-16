@@ -101,7 +101,7 @@
 
   <div class="modal" tabindex="-1" role="dialog" id="modal_tgl">
     <div class="modal-dialog" role="document">
-      <form action="<?= base_url('welcome/') ?>">
+      <form action="<?= base_url('welcome/add_jadwal') ?>" method="post">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Masukkan Tanggal Pemesanan</h5>
@@ -111,7 +111,7 @@
           </div>
           <div class="modal-body">
           <input type="text" name="id_paket" id="id_paket" value="" />
-          <input type="date" />
+          <input type="date" name="tanggal" />
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

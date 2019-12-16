@@ -72,46 +72,38 @@ class Welcome extends CI_Controller {
 	public function Order()
 	{
 		if ($this->session->userdata('logged_in') == TRUE) {
-
-		$data['order'] = $this->City_model->get_data_order();
-		$this->load->view('pesanan_view', $data);
-
-	} else {
-            
-		$this->load->view('login_view');
-		
-	}
+			$data['order'] = $this->City_model->get_data_order();
+			$this->load->view('pesanan_view', $data);
+		} else {
+			$this->load->view('login_view');
+		}
 	}
 
 
 	public function Destinasi($id)
 	{
-	if ($this->session->userdata('logged_in') == TRUE) {
-		$data['destinasi'] = $this->City_model->get_data_destinasi($id);
-		$this->load->view('destinasi_view', $data);
-	} else {
-            
-		$this->load->view('login_view');
-		
-	}
+		if ($this->session->userdata('logged_in') == TRUE) {
+			$data['destinasi'] = $this->City_model->get_data_destinasi($id);
+			$this->load->view('destinasi_view', $data);
+		} else {
+			$this->load->view('login_view');
+		}
 	}
 
 	public function Profil()
 	{
 		if ($this->session->userdata('logged_in') == TRUE) {
-		$data['user'] = $this->City_model->get_data_user();
-		$this->load->view('profil_view', $data);
-	} else {
-            
-		$this->load->view('login_view');
-		
-	}
+			$data['user'] = $this->City_model->get_data_user();
+			$this->load->view('profil_view', $data);
+		} else { 
+			$this->load->view('login_view');
+		}
 	}
 
 	public function get_data_user_by_id($id_user)
 	{
-			$data = $this->City_model->get_data_user_by_id($id_user);
-			echo json_encode($data);
+		$data = $this->City_model->get_data_user_by_id($id_user);
+		echo json_encode($data);
     }
 
 	public function CekOrder()
@@ -154,32 +146,32 @@ class Welcome extends CI_Controller {
       }
 	}
 	
-	public function cari_paket($kode)
-    {
-      if($this->session->userdata('logged_in') == TRUE){
+	// public function cari_paket($kode)
+    // {
+    //   if($this->session->userdata('logged_in') == TRUE){
         
-        if($this->City_model->cari_paket($kode) == TRUE)
-        {
-		  redirect('Welcome/tourguide/'.$kode);
-        } else {
-          $this->session->set_flashdata('notif', 'asdasdsd');
-		  redirect('Welcome/City');
-        }
+    //     if($this->City_model->cari_paket($kode) == TRUE)
+    //     {
+	// 	  redirect('Welcome/tourguide/'.$kode);
+    //     } else {
+    //       $this->session->set_flashdata('notif', 'asdasdsd');
+	// 	  redirect('Welcome/City');
+    //     }
   
-      } else {
-        redirect('login');
-      }
-	}
+    //   } else {
+    //     redirect('login');
+    //   }
+	// }
 
 	public function delete_pesanan($id_pesanan)
     {   
-            if($this->City_model->deletePesanan($id_pesanan)){
-                $this->session->set_flashdata('notif', ' Berhasil Hapus');
-                redirect('Welcome/Order');
-            } else {
-                $this->session->set_flashdata('notif', ' Gagal Hapus');
-                redirect('Welcome/Order');
-            }      
+        if($this->City_model->deletePesanan($id_pesanan)){
+            $this->session->set_flashdata('notif', ' Berhasil Hapus');
+            redirect('Welcome/Order');
+        } else {
+            $this->session->set_flashdata('notif', ' Gagal Hapus');
+            redirect('Welcome/Order');
+        }      
 	}
 	
 	public function pesan()
@@ -190,7 +182,7 @@ class Welcome extends CI_Controller {
         if($this->City_model->tambah_transaksi() == TRUE)
         {
           $this->session->set_flashdata('notif', 'Proses berhasil');
-          redirect('Welcome/order');
+          redirect('Welcome/cekorder');
   
         } else {
           $this->session->set_flashdata('notif', 'Proses gagal');
@@ -202,120 +194,79 @@ class Welcome extends CI_Controller {
       }
 	}
 	
-	public function add_struk()
-    {        
-
-                $config['upload_path'] = './assets/img_transfer/';
-                $config['allowed_types'] = 'gif|jpg|png';
-                $config['max_size'] = '2000000';
-                $this->load->library('upload', $config);
-                if($this->upload->do_upload('file'))
-                {
-                    if($this->City_model->addStruk($this->upload->data()) == TRUE)
-                    {
-
-                       $this->session->set_flashdata('notif','Berhasil');
-                       redirect('Welcome/cekorder');
-                       
-                    } else {
-
-                        $this->session->set_flashdata('notif','Gagal');
-                        redirect('Welcome/cekorder');
-                    }
-                } else {
-                    $this->session->set_flashdata('notif', 'Gagal Upload');
-                    redirect('Welcome/order');
-                }
-
-	}
-	
 	public function edit_user()
 	{
-			$this->form_validation->set_rules('edit_nama_user', 'Title', 'trim|required');
-			$this->form_validation->set_rules('edit_email', 'Title', 'trim|required');
-			$this->form_validation->set_rules('edit_telp', 'Title', 'trim|required');
-			$this->form_validation->set_rules('edit_alamat', 'Title', 'trim|required');
-			$this->form_validation->set_rules('edit_tgl_lahir', 'Title', 'trim|required');
-			$this->form_validation->set_rules('edit_password', 'Title', 'trim|required');
-
-			if ($this->form_validation->run() == TRUE) {
-				if($this->City_model->editUser() == TRUE)
-				{
-					$this->session->set_flashdata('notif', 'Ubah berhasil');
-					redirect('Welcome/profil');
-				} else {
-					$this->session->set_flashdata('notif', 'Ubah gagal');
-					redirect('Welcome/profil');
-				}
+		$this->form_validation->set_rules('edit_nama_user', 'Title', 'trim|required');
+		$this->form_validation->set_rules('edit_email', 'Title', 'trim|required');
+		$this->form_validation->set_rules('edit_telp', 'Title', 'trim|required');
+		$this->form_validation->set_rules('edit_alamat', 'Title', 'trim|required');
+		$this->form_validation->set_rules('edit_tgl_lahir', 'Title', 'trim|required');
+		$this->form_validation->set_rules('edit_password', 'Title', 'trim|required');
+		if ($this->form_validation->run() == TRUE) {
+			if($this->City_model->editUser() == TRUE)
+			{
+				$this->session->set_flashdata('notif', 'Ubah berhasil');
+				redirect('Welcome/profil');
 			} else {
-				$this->session->set_flashdata('notif', validation_errors());
+				$this->session->set_flashdata('notif', 'Ubah gagal');
 				redirect('Welcome/profil');
 			}
-		
+		} else {
+			$this->session->set_flashdata('notif', validation_errors());
+			redirect('Welcome/profil');
+		}
 	}
 
 	public function get_data_transaksi_by_id($id_transaksi)
 	{
-			$data = $this->City_model->get_transaksi_by_id($id_transaksi);
-			echo json_encode($data);
+		$data = $this->City_model->get_transaksi_by_id($id_transaksi);
+		echo json_encode($data);
 	}
 	
 	public function struk()
 	{
-		$config['upload_path'] = './assets/img_transfer/';
-		$config['allowed_types'] = 'gif|jpg|png';
-		$config['max_size'] = '0';
-		$config['file_name'] = $_FILES['file']['name'];
+        $config['upload_path'] = '/assets/img_transfer/';
+        $config['allowed_types'] = 'gif|jpg|png';
+        $config['max_size'] = 2000000;
 
-		$path = './assets/img_transfer/';
-
-		$this->upload->initialize($config);
-
-			if(!empty($_FILES['file']['name'])) {
-				if($this->upload->do_upload('file')) {
-					$file = $this->upload->data();
-
-					$this->City_model->updateStruk($file, $id_f);
-					redirect('Welcome/cekorder');
-				} else {
-					
-					redirect('Welcome/order');
-					
-				}
+        $this->load->library('upload', $config);
+		$id_f = $this->input->post('id_transaksi');
+		if(!empty($_FILES['file']['name'])) {
+			if($this->upload->do_upload('file')) {
+				$gambar = $this->upload->data();
+				$this->City_model->updateStruk($gambar, $id_f);
+				redirect('Welcome/cekorder');
 			} else {
-				redirect('Welcome/order');
-			}	
+				echo $this->upload->display_errors();
+			}
+		} else {
+			redirect('Welcome/cekorder');
+		}
 	}
 
 	public function add_jadwal()
     {
-            $this->form_validation->set_rules('jadwal', 'Jadwal', 'trim|required');
-            // $this->form_validation->set_rules('Photo', 'Photo', 'trim|required');
-            
-            if ($this->form_validation->run() == TRUE) {
-
-                    if($this->City_model->addTanggal() == TRUE)
-                    {
-
-                       $this->session->set_flashdata('notif','Berhasil');
-                       redirect('Welcome/tourguide');
-                       
-                    } else {
-
-                        $this->session->set_flashdata('notif','Gagal');
-                        redirect('Welcome/destinasi');
-                    }
-                } else {
-                    $this->session->set_flashdata('notif', 'maaf gagal');
-                    redirect('Welcome/destinasi');
-                }
+		$id = $this->input->post('id_paket');
+        $this->form_validation->set_rules('tanggal', 'tanggal', 'trim|required');
+        
+        if ($this->form_validation->run() == TRUE) {
+            if($this->City_model->addTanggal() == TRUE)
+            {
+               $this->session->set_flashdata('notif','Berhasil');
+               redirect('Welcome/tourguide/'.$id);
+               
+            } else {
+                $this->session->set_flashdata('notif','Gagal');
+                redirect('Welcome/destinasi/'.$id);
+            }
+        } else {
+            $this->session->set_flashdata('notif', 'maaf gagal');
+            redirect('Welcome/destinasi/'.$id);
+        }
 	}
-	
+
 	public function tanggal()
 	{
 		 
 	}
-
-	
-
 }

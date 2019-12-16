@@ -118,23 +118,40 @@
 								<?php
 									if($transaksi != NULL){
 										foreach ($transaksi as $cart) {
-
-											echo '
+											if ($cart->file != null) {
+												echo '
+													<tr>
+														<td>'. $cart->nama_user.'</td>
+														<td>'. $cart->telp.'</td>
+														<td>'. $cart->nama_paket.'</td>
+														<td>'. $cart->lama_hari.'</td>
+														<td>'. $cart->harga.'</td>
+														<td>'. $cart->nama.'</td>
+														<td><img src="'.base_url('assets/img_guide/').$cart->foto.'" width="100px" /></td>
+														<td>'. $cart->tanggal.'</td>
+														<td>'. $cart->status.'</td>
+														<td><img src="'.base_url('assets/img_transfer/').$cart->file.'" width="100px" /></td>
+														<td><a href="#struk" class="btn btn-primary" data-toggle="modal" class="btn btn-primary" onclick="prepare_edit('. $cart->id_transaksi.')">Upload Bukti Transfer</a></td>
+													</tr>
+												';
+											} 
+											else {
+												echo '
 												<tr>
-                           <td>'. $cart->nama_user.'</td>
-                        <td>'. $cart->telp.'</td>
-						<td>'. $cart->nama_paket.'</td>
-						<td>'. $cart->lama_hari.'</td>
-						<td>'. $cart->harga.'</td>
-                        <td>'. $cart->nama.'</td>
-                        <td><img src="'.base_url('assets/img_guide/').$cart->foto.'" width="100px" /></td>
-                        <td>'. $cart->jadwal.'</td>
-                        <td>'. $cart->status.'</td>
-						<td><img src="'.base_url('assets/img_transfer/').$cart->file.'" width="100px" /></td>
-						<td><a href="#struk" class="btn btn-primary" data-toggle="modal" class="btn btn-primary" onclick="prepare_edit('. $cart->id_transaksi.')">Upload Bukti Transfer</a></td>
-													
+                           							<td>'. $cart->nama_user.'</td>
+                           							<td>'. $cart->telp.'</td>
+						   							<td>'. $cart->nama_paket.'</td>
+						   							<td>'. $cart->lama_hari.'</td>
+						   							<td>'. $cart->harga.'</td>
+                           							<td>'. $cart->nama.'</td>
+                           							<td><img src="'.base_url('assets/img_guide/').$cart->foto.'" width="100px" /></td>
+                           							<td>'. $cart->tanggal.'</td>
+						   							<td>'. $cart->status.'</td>
+						   							<td>Belum Upload</td>
+						   							<td><a href="#struk" class="btn btn-primary" data-toggle="modal" class="btn btn-primary" onclick="prepare_edit('. $cart->id_transaksi.')">Upload Bukti Transfer</a></td>
 												</tr>
 											';
+											}
 										}
 									} else {
 										echo '
@@ -170,7 +187,7 @@
 			</div>
 			<div class="modal-body">
 				<form action="<?=base_url('Welcome/struk')?>" method="post" enctype="multipart/form-data">
-			<input type="text" name="edit_id_transaksi" id="edit_id_transakis">
+					<input type="text" name="id_transaksi" id="edit_id_transakis">
 					<br>
                     <input type="file" name="file" class="form-control">
                     <br>

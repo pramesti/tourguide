@@ -281,7 +281,6 @@ class model_Data extends CI_Model {
         $this->db->from ( 'transaksi' );
         $this->db->join ( 'tourguide', 'tourguide.id_tourguide = transaksi.id_tourguide');
         $this->db->join ( 'user', 'user.id_user = transaksi.id_user');
-        $this->db->join ( 'jadwal', 'jadwal.id_jadwal = transaksi.id_jadwal');
         $this->db->join ( 'paket', 'paket.id_paket = transaksi.id_paket');
         $this->db->join ( 'status', 'status.id_status = transaksi.id_status');
         $this->db->where('status.id_status = 2  ');
@@ -296,7 +295,6 @@ class model_Data extends CI_Model {
         $this->db->from ( 'transaksi' );
         $this->db->join ( 'tourguide', 'tourguide.id_tourguide = transaksi.id_tourguide');
         $this->db->join ( 'user', 'user.id_user = transaksi.id_user');
-        $this->db->join ( 'jadwal', 'jadwal.id_jadwal = transaksi.id_jadwal');
         $this->db->join ( 'paket', 'paket.id_paket = transaksi.id_paket');
         $this->db->join ( 'status', 'status.id_status = transaksi.id_status');
         $this->db->where('status.id_status = 1  ');

@@ -37,7 +37,7 @@
 						<td><?= $t->harga?></td>
 						<td><?= $t->nama?></td>
 						<td><?= $t->telp_guide?></td>
-                        <td><?= $t->jadwal?></td>
+                        <td><?= $t->tanggal?></td>
 						<td><?= $t->status?></td>
 						<td><img src="<?= base_url('assets/img_transfer/'.$t->file);?>" alt="belum transfer" width="100px"></td>
                         
