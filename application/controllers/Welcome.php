@@ -264,9 +264,4 @@ class Welcome extends CI_Controller {
             redirect('Welcome/destinasi/'.$id);
         }
 	}
-
-	public function tanggal()
-	{
-		 
-	}
 }
