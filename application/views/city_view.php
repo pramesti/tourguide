@@ -71,16 +71,7 @@
       </div>
 
     <div class="container">
-    <form action="<?= base_url('Welcome/add_jadwal') ?>" method="post">
-      <label for=""> Tanggal Pemesanan</label> <br>
-        <input type="date" name="jadwal">
-        <br>
-        <input type="submit">
-      </form>
       <div class="row">
-
-       
-        
         <?php
         foreach($city as $c): ?>
         <div class="col-md-6 col-lg-5s">

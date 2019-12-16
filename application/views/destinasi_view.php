@@ -100,27 +100,27 @@
   </section>
 
   <div class="modal" tabindex="-1" role="dialog" id="modal_tgl">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Masukkan Tanggal Pemesanan</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      <form action="">
-      <input type="" name="id_paket" id="id_paket" value="">
-      <input type="date"> </input>
+    <div class="modal-dialog" role="document">
+      <form action="<?= base_url('welcome/') ?>">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Masukkan Tanggal Pemesanan</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+          <input type="text" name="id_paket" id="id_paket" value="" />
+          <input type="date" />
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" style="color:white;"> Save </button>
+          </div>
+        </div>
       </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" style="color:white;"> <a href="<?= base_url('Welcome/tourguide/'.$d->id_kota) ?>">Save</button>
-      </div>
     </div>
   </div>
-</div>
 
   <!--================Tour section End =================-->
 

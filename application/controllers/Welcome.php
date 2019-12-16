@@ -87,7 +87,6 @@ class Welcome extends CI_Controller {
 	public function Destinasi($id)
 	{
 	if ($this->session->userdata('logged_in') == TRUE) {
-		
 		$data['destinasi'] = $this->City_model->get_data_destinasi($id);
 		$this->load->view('destinasi_view', $data);
 	} else {
