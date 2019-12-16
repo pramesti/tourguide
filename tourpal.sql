@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Dec 11, 2019 at 10:36 AM
--- Server version: 10.1.36-MariaDB
--- PHP Version: 7.2.11
+-- Host: localhost
+-- Generation Time: Dec 16, 2019 at 04:37 PM
+-- Server version: 10.4.10-MariaDB
+-- PHP Version: 7.3.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -71,31 +71,6 @@ INSERT INTO `destinasi` (`id_tempat`, `id_kota`, `id_paket`, `nama_wisata`, `des
 -- --------------------------------------------------------
 
 --
--- Table structure for table `jadwal`
---
-
-CREATE TABLE `jadwal` (
-  `id_jadwal` int(11) NOT NULL,
-  `id_user` int(11) NOT NULL,
-  `jadwal` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `jadwal`
---
-
-INSERT INTO `jadwal` (`id_jadwal`, `id_user`, `jadwal`) VALUES
-(31, 7, '2019-12-18'),
-(32, 9, '2019-12-12'),
-(33, 9, '2019-12-05'),
-(34, 11, '2019-12-20'),
-(35, 11, '2019-12-28'),
-(36, 11, '2019-12-21'),
-(37, 11, '2019-12-12');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `kota_tujuan`
 --
 
@@ -143,7 +118,8 @@ INSERT INTO `paket` (`id_paket`, `nama_paket`, `harga`, `lama_hari`) VALUES
 CREATE TABLE `pesanan` (
   `id_pesanan` int(11) NOT NULL,
   `id_user` int(11) DEFAULT NULL,
-  `id_tourguide` int(11) DEFAULT NULL
+  `id_tourguide` int(11) DEFAULT NULL,
+  `tanggal` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -221,20 +197,22 @@ INSERT INTO `tourguide` (`id_tourguide`, `nama`, `kemampuan`, `telp_guide`, `id_
 CREATE TABLE `transaksi` (
   `id_transaksi` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
-  `id_jadwal` int(11) NOT NULL,
   `id_status` int(11) DEFAULT NULL,
   `id_paket` int(11) NOT NULL,
   `id_tourguide` int(11) NOT NULL,
-  `file` text
+  `tanggal` date NOT NULL,
+  `file` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `transaksi`
 --
 
-INSERT INTO `transaksi` (`id_transaksi`, `id_user`, `id_jadwal`, `id_status`, `id_paket`, `id_tourguide`, `file`) VALUES
-(55, 11, 36, 2, 5, 8, NULL),
-(56, 11, 37, 2, 5, 5, NULL);
+INSERT INTO `transaksi` (`id_transaksi`, `id_user`, `id_status`, `id_paket`, `id_tourguide`, `tanggal`, `file`) VALUES
+(55, 11, 2, 5, 8, '0000-00-00', NULL),
+(56, 11, 2, 5, 5, '0000-00-00', NULL),
+(59, 11, 2, 5, 5, '0000-00-00', NULL),
+(60, 11, 2, 5, 5, '2019-12-13', NULL);
 
 -- --------------------------------------------------------
 
@@ -278,13 +256,6 @@ ALTER TABLE `destinasi`
   ADD PRIMARY KEY (`id_tempat`),
   ADD KEY `id_kota` (`id_kota`,`id_paket`),
   ADD KEY `id_paket` (`id_paket`);
-
---
--- Indexes for table `jadwal`
---
-ALTER TABLE `jadwal`
-  ADD PRIMARY KEY (`id_jadwal`),
-  ADD KEY `id_user` (`id_user`);
 
 --
 -- Indexes for table `kota_tujuan`
@@ -334,7 +305,6 @@ ALTER TABLE `transaksi`
   ADD PRIMARY KEY (`id_transaksi`),
   ADD KEY `id_checkout` (`id_user`),
   ADD KEY `id_status` (`id_status`),
-  ADD KEY `id_jadwal` (`id_jadwal`),
   ADD KEY `id_paket` (`id_paket`),
   ADD KEY `id_tourguide` (`id_tourguide`);
 
@@ -361,12 +331,6 @@ ALTER TABLE `destinasi`
   MODIFY `id_tempat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT for table `jadwal`
---
-ALTER TABLE `jadwal`
-  MODIFY `id_jadwal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
-
---
 -- AUTO_INCREMENT for table `kota_tujuan`
 --
 ALTER TABLE `kota_tujuan`
@@ -382,7 +346,7 @@ ALTER TABLE `paket`
 -- AUTO_INCREMENT for table `pesanan`
 --
 ALTER TABLE `pesanan`
-  MODIFY `id_pesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=133;
+  MODIFY `id_pesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=139;
 
 --
 -- AUTO_INCREMENT for table `status`
@@ -406,7 +370,7 @@ ALTER TABLE `tourguide`
 -- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT for table `user`
@@ -424,12 +388,6 @@ ALTER TABLE `user`
 ALTER TABLE `destinasi`
   ADD CONSTRAINT `destinasi_ibfk_2` FOREIGN KEY (`id_kota`) REFERENCES `kota_tujuan` (`id_kota`),
   ADD CONSTRAINT `destinasi_ibfk_3` FOREIGN KEY (`id_paket`) REFERENCES `paket` (`id_paket`);
-
---
--- Constraints for table `jadwal`
---
-ALTER TABLE `jadwal`
-  ADD CONSTRAINT `jadwal_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`);
 
 --
 -- Constraints for table `pesanan`
@@ -451,7 +409,6 @@ ALTER TABLE `tourguide`
 ALTER TABLE `transaksi`
   ADD CONSTRAINT `transaksi_ibfk_3` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`),
   ADD CONSTRAINT `transaksi_ibfk_6` FOREIGN KEY (`id_status`) REFERENCES `status` (`id_status`),
-  ADD CONSTRAINT `transaksi_ibfk_7` FOREIGN KEY (`id_jadwal`) REFERENCES `jadwal` (`id_jadwal`),
   ADD CONSTRAINT `transaksi_ibfk_8` FOREIGN KEY (`id_paket`) REFERENCES `paket` (`id_paket`),
   ADD CONSTRAINT `transaksi_ibfk_9` FOREIGN KEY (`id_tourguide`) REFERENCES `tourguide` (`id_tourguide`);
 COMMIT;
