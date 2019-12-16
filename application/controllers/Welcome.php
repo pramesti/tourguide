@@ -224,7 +224,7 @@ class Welcome extends CI_Controller {
                         redirect('Welcome/cekorder');
                     }
                 } else {
-                    $this->session->set_flashdata('notif', 'Tambah Movie Gagal Upload');
+                    $this->session->set_flashdata('notif', 'Gagal Upload');
                     redirect('Welcome/order');
                 }
 
@@ -265,7 +265,7 @@ class Welcome extends CI_Controller {
 	{
 		$config['upload_path'] = './assets/img_transfer/';
 		$config['allowed_types'] = 'gif|jpg|png';
-		$config['max_size'] = '2000000';
+		$config['max_size'] = '0';
 		$config['file_name'] = $_FILES['file']['name'];
 
 		$path = './assets/img_transfer/';
@@ -274,9 +274,9 @@ class Welcome extends CI_Controller {
 
 			if(!empty($_FILES['file']['name'])) {
 				if($this->upload->do_upload('file')) {
-					$gambar = $this->upload->data();
+					$file = $this->upload->data();
 
-					$this->City_model->updateStruk($gambar, $id_f);
+					$this->City_model->updateStruk($file, $id_f);
 					redirect('Welcome/cekorder');
 				} else {
 					
@@ -285,10 +285,38 @@ class Welcome extends CI_Controller {
 				}
 			} else {
 				redirect('Welcome/order');
-			}
-
-
-		
+			}	
 	}
+
+	public function add_jadwal()
+    {
+            $this->form_validation->set_rules('jadwal', 'Jadwal', 'trim|required');
+            // $this->form_validation->set_rules('Photo', 'Photo', 'trim|required');
+            
+            if ($this->form_validation->run() == TRUE) {
+
+                    if($this->City_model->addTanggal() == TRUE)
+                    {
+
+                       $this->session->set_flashdata('notif','Berhasil');
+                       redirect('Welcome/tourguide');
+                       
+                    } else {
+
+                        $this->session->set_flashdata('notif','Gagal');
+                        redirect('Welcome/destinasi');
+                    }
+                } else {
+                    $this->session->set_flashdata('notif', 'maaf gagal');
+                    redirect('Welcome/destinasi');
+                }
+	}
+	
+	public function tanggal()
+	{
+		 
+	}
+
+	
 
 }

@@ -85,10 +85,9 @@
 								<?php
 									if($order != NULL){
 										foreach ($order as $cart) {
-
 											echo '
 												<tr>
-                          <input type="hidden" name="id_tourguide[]" value="'.$cart->id_tourguide.'">
+                          <input>
                           <input type="hidden" name="id_paket[]" value="'.$cart->id_paket.'">
                           <td>'.$cart->nama_paket.'</td>
                           <td><img src="'.base_url('assets/img_guide/').$cart->foto.'" width="100px" /></td>
@@ -131,11 +130,9 @@
                         <label>Tanggal Pemesanan</label>
 												<input type="date" name="jadwal" class="form-control input-lg" required>
 											</div>
-
 											<div class="col-md-3">
 												<input type="submit" name="submit" value="Pesan" class="btn btn-lg btn-block btn-primary">
 											</div>
-
 										';
 								}
 							?>
@@ -144,6 +141,8 @@
 					</div>
 				</div>
         </div>
+
+
 
 
 </section>

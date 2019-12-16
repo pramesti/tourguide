@@ -50,6 +50,16 @@ class City_model extends CI_Model {
         }
     }
 
+    public function tanggal()
+    {
+        $data = array(
+            'jadwal' => $this->input->post('jadwal'),
+            'id_user' => $this->input->post('id_user'),
+        );
+        $this->db->insert('jadwal', $data);
+
+    }
+
     public function get_data_destinasi($id)
     {
         $this->db->select ( '*' ); 
@@ -160,11 +170,10 @@ class City_model extends CI_Model {
             'id_paket'		=> $this->input->post('id_paket')[$i],
             'id_tourguide'		=> $this->input->post('id_tourguide')[$i],
         );
-
         //memasukan ke tabel detail transaksi
         $this->db->insert('transaksi', $data_transaksi);
-
     }
+
 
     //mengkosongkan cart berdasarkan pelanggan yang melakukan transaksi
      $this->db->where('id_user', $this->session->userdata('id_user'))
@@ -239,14 +248,29 @@ class City_model extends CI_Model {
                         ->row();
     }
 
-    public function updateStruk($gambar, $id_f)
+    public function updateStruk($file, $id_f)
     {
         $data = array(
-            'file' => $gambar['file_name']
+            'file' => $file['file_name']
         );
         $this->db->where('id_transaksi', $id_f);
         $this->db->update('transaksi', $data);
     }
+
+        public function addTanggal()    
+        {
+            $data = array(
+                'jadwal'  => $this->input->post('jadwal'),
+            );
+            
+            $this->db->insert('pesanan', $data);
+
+            if($this->db->affected_rows() > 0){
+                return TRUE;
+            } else {
+                return FALSE;
+            }
+        }
 }
 
 /* End of file City_model.php */

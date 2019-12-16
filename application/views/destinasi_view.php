@@ -96,8 +96,31 @@
     <!-- <button type="button" id="myModalMenu" class="btn btn-primary " data-toggle="modalMenu" style="width: 500px; margin-left: 435px;" data-target="#exampleModalCenter">
         Book
     </button>  -->
-    <td><a href="<?= base_url('Welcome/tourguide/'.$d->id_kota) ?>"" class="btn btn-primary btn-xs" style="width: 500px; margin-left: 435px;">Pilih Paket</a></td>
+    <button type="button" data-toggle="modal" data-target="#modal_tgl" data-idpaket="<?= $d->id_kota?>" class="btn btn-primary btn-xs" style="width: 500px; margin-left: 495px;"> Pilih Paket</a></button>
   </section>
+
+  <div class="modal" tabindex="-1" role="dialog" id="modal_tgl">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Masukkan Tanggal Pemesanan</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form action="">
+      <input type="" name="id_paket" id="id_paket" value="">
+      <input type="date"> </input>
+      </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" style="color:white;"> <a href="<?= base_url('Welcome/tourguide/'.$d->id_kota) ?>">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
 
   <!--================Tour section End =================-->
 
@@ -111,6 +134,14 @@
   <script src="<?= base_url() ?>assets/js/mail-script.js"></script>
   <script src="<?= base_url() ?>assets/js/skrollr.min.js"></script>
   <script src="<?= base_url() ?>assets/js/main.js"></script>
+  <script>
+  $('#modal_tgl').on('show.bs.modal', function (event) { 
+  var button = $(event.relatedTarget) // Button that triggered the modal 
+  var idpaket = button.data('idpaket') // Extract info from data-* attributes // If necessary, you could initiate an AJAX request here (and then do the updating in a callback). // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+  var modal = $(this) 
+  modal.find('.modal-body #id_paket').val(idpaket) 
+  })
+  </script>
 </body>
 </html>
   

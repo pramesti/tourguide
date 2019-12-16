@@ -284,7 +284,6 @@ class model_Data extends CI_Model {
         $this->db->join ( 'jadwal', 'jadwal.id_jadwal = transaksi.id_jadwal');
         $this->db->join ( 'paket', 'paket.id_paket = transaksi.id_paket');
         $this->db->join ( 'status', 'status.id_status = transaksi.id_status');
-        $this->db->join ( 'struk', 'struk.id_struk = transaksi.id_struk', 'left');
         $this->db->where('status.id_status = 2  ');
         $query = $this->db->get ('');
         return $query->result ();
@@ -300,7 +299,6 @@ class model_Data extends CI_Model {
         $this->db->join ( 'jadwal', 'jadwal.id_jadwal = transaksi.id_jadwal');
         $this->db->join ( 'paket', 'paket.id_paket = transaksi.id_paket');
         $this->db->join ( 'status', 'status.id_status = transaksi.id_status');
-        $this->db->join ( 'struk', 'struk.id_struk = transaksi.id_struk', 'left');
         $this->db->where('status.id_status = 1  ');
         $query = $this->db->get ('');
         return $query->result ();
